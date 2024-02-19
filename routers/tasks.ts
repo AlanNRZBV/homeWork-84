@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Task from '../models/Task';
 import auth, { RequestWithUser } from '../middleware/auth';
-import { TaskData } from '../types';
+import { TaskData, UpdateData } from '../types';
 import mongoose from 'mongoose';
 import User from '../models/User';
 
@@ -45,7 +45,9 @@ tasksRouter.post('/',auth, async (req: RequestWithUser,res,next)=>{
 tasksRouter.delete('/:id', auth,async(req:RequestWithUser,res,next)=>{
   try{
     const task = await Task.findById(req.params.id)
-
+    if(!task){
+      return res.status(404).send(`No task with id: ${req.params.id}`)
+    }
     const user = await User.findById(task?.user)
 
     if(user.token === req.user?.token){
@@ -58,5 +60,35 @@ tasksRouter.delete('/:id', auth,async(req:RequestWithUser,res,next)=>{
     next(e)
   }
 })
+
+tasksRouter.put('/:id', auth,async(req:RequestWithUser,res,next)=>{
+  try{
+    const task = await Task.findById(req.params.id)
+    if(!task){
+      return res.status(404).send(`No task with id: ${req.params.id}`)
+    }
+    const user = await User.findById(task?.user)
+
+
+    if(user.token === req.user?.token){
+
+      const filter = {_id:req.params.id}
+      const update: UpdateData = {}
+      Object.keys(req.body).forEach((key) => {
+        if (req.body[key]) {
+          update[key as keyof UpdateData] = req.body[key]
+        }
+      })
+      const updatedTask = await Task.findOneAndUpdate(filter, update, { returnOriginal: false });
+      return res.send({message:'Task has been updated', task: updatedTask} )
+    }
+
+    return res.status(403).send('You are not permitted to perform this operation')
+  }catch (e) {
+    next(e)
+  }
+})
+
+
 
 export default tasksRouter;

@@ -20,3 +20,9 @@ export interface TaskData {
   description: string,
   status: string
 }
+
+export interface UpdateData {
+  title?: string,
+  description?: string,
+  status?: string
+}
