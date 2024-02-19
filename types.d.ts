@@ -1,10 +1,10 @@
-import { Model, Types } from 'mongoose';
-import ObjectId = module
+import { Model } from 'mongoose';
+import ObjectId = module;
 
 export interface UserFields {
-  username: string,
-  password: string
-  token: string
+  username: string;
+  password: string;
+  token: string;
 }
 
 export interface UserMethods {
