@@ -1,11 +1,10 @@
-import {Schema, model, Types} from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 import User from './User';
 
-
 const TaskSchema = new Schema({
-  user:{
+  user: {
     type: Schema.Types.ObjectId,
-    ref:'User',
+    ref: 'User',
     required: true,
     validate: {
       validator: async (value: Types.ObjectId) => {
@@ -13,19 +12,19 @@ const TaskSchema = new Schema({
         return Boolean(user);
       },
       message: 'User does not exist!',
-    }
+    },
   },
-  title:{
+  title: {
     type: String,
-    required: true
+    required: true,
   },
   description: String,
-  status:{
+  status: {
     type: String,
-    enum:['new','in_progress','complete'],
-    default:'new'
-  }
-})
+    enum: ['new', 'in_progress', 'complete'],
+    default: 'new',
+  },
+});
 
-const Task = model('Task', TaskSchema)
-export default Task
+const Task = model('Task', TaskSchema);
+export default Task;

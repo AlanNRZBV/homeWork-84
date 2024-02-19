@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 import config from './config';
 import tasksRouter from './routers/tasks';
-import usersRouter from './routers/users'
+import usersRouter from './routers/users';
 
 const app = express();
 const port = 8000;
@@ -25,7 +25,7 @@ const run = async () => {
 
   process.on('exit', () => {
     mongoose.disconnect();
-  })
+  });
 };
 
 void run();

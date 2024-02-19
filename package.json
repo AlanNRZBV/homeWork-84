@@ -7,7 +7,8 @@
     "dev": "nodemon index.ts",
     "lint": "eslint \"**/*.ts\"",
     "typecheck": "tsc --noemit",
-    "seed": "ts-node fixture.ts"
+    "seed": "ts-node fixture.ts",
+    "format": "npx prettier . -w"
   },
   "keywords": [],
   "author": "",

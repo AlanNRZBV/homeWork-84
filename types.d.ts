@@ -12,17 +12,17 @@ export interface UserMethods {
   generateToken(): void;
 }
 
-type UserModel = Model<UserField, unknown, UserMethods>
+type UserModel = Model<UserField, unknown, UserMethods>;
 
 export interface TaskData {
-  user: ObjectId,
-  title: string,
-  description: string,
-  status: string
+  user: ObjectId;
+  title: string;
+  description: string;
+  status: string;
 }
 
 export interface UpdateData {
-  title?: string,
-  description?: string,
-  status?: string
+  title?: string;
+  description?: string;
+  status?: string;
 }
