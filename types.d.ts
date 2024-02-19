@@ -1,4 +1,5 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
+import ObjectId = module
 
 export interface UserFields {
   username: string,
@@ -12,3 +13,10 @@ export interface UserMethods {
 }
 
 type UserModel = Model<UserField, unknown, UserMethods>
+
+export interface TaskData {
+  user: ObjectId,
+  title: string,
+  description: string,
+  status: string
+}
